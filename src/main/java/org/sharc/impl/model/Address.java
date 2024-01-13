@@ -33,6 +33,6 @@ public class Address {
     private Integer appartmentNumber;
 
     @NotBlank
-    @Size(min = 6)
+    @Size(min = 6, max = 16)
     private String postalCode;
 }
