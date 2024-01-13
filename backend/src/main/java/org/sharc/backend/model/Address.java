@@ -1,4 +1,4 @@
-package org.sharc.impl.model;
+package org.sharc.backend.model;
 
 import jakarta.annotation.Nullable;
 import jakarta.persistence.Entity;

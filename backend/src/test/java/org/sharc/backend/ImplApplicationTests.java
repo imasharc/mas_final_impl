@@ -1,4 +1,4 @@
-package org.sharc.impl;
+package org.sharc.backend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
