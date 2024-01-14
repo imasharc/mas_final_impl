@@ -14,9 +14,9 @@ Here's the link to the documentation (https://docs.google.com/document/d/12JScNM
 
 ## Features
 
-- **Acount Creation**
-- **Add textual posts**
-- **Leave comments under posts**
+- **Display auctions list**
+- **Display offers list**
+- **Add new offer**
 - **More to come...**
 
 ## How it works?
