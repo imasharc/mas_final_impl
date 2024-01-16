@@ -1,13 +1,9 @@
 package org.sharc.backend;
 
 import lombok.RequiredArgsConstructor;
-import org.sharc.backend.model.Address;
-import org.sharc.backend.model.Carrier;
+import org.sharc.backend.model.*;
 import org.sharc.backend.model.Company;
-import org.sharc.backend.repository.AddressRepository;
-import org.sharc.backend.repository.CarrierRepository;
-import org.sharc.backend.repository.CompanyRepository;
-import org.sharc.backend.repository.ManufacturerRepository;
+import org.sharc.backend.repository.*;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
@@ -26,8 +22,11 @@ public class Main {
     private final CompanyRepository companyRepository;
     private final CarrierRepository carrierRepository;
     private final ManufacturerRepository manufacturerRepository;
+    private final AccountRepository accountRepository;
+
     private Address a1;
     private Carrier c1;
+    private Account acc1;
     private Set<Address> setOfA = new HashSet<>();
 
     @EventListener
@@ -50,14 +49,21 @@ public class Main {
                 .registrationDate(LocalDate.of(2001, 8, 22))
                 .licenseRegistration(LocalDate.of(2004, 10, 10))
                 .build();
+        acc1 = Account.builder()
+                .login(c1.getKRS().toString())
+                .password("ukulele")
+                .build();
+
         c1.getAddresses().add(a1);
-        carrierRepository.save(c1);
+        c1.setAccount(acc1);
+        acc1.setCompany(c1);
         a1.setRegisteredFor(c1);
+        System.out.println("\n\nCOMPANY KRS");
+        System.out.println(c1.getKRS());
+        System.out.println("\n\nCOMPANY ACCOUNT");
+        System.out.println(acc1.toString());
+        carrierRepository.save(c1);
         addressRepository.save(a1);
-        System.out.println("\n\nCOMPANIES");
-
-        Optional<Company> companies = companyRepository.findById(c1.getId());
-
-        System.out.println(companies.get().getAddresses());
+        accountRepository.save(acc1);
     }
 }
