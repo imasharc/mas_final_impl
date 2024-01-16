@@ -1,10 +1,7 @@
 package org.sharc.backend.model;
 
 import jakarta.annotation.Nullable;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -35,4 +32,8 @@ public class Address {
     @NotBlank
     @Size(min = 6, max = 16)
     private String postalCode;
+
+    @ManyToOne
+    @JoinColumn(name = "company_id", nullable = false)
+    private Company registeredFor;
 }
