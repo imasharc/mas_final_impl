@@ -1,5 +1,6 @@
 package org.sharc.backend.model;
 
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -14,6 +15,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @SuperBuilder
 @ToString(callSuper = true)
+@DiscriminatorValue("Manufacturer")
 public class Manufacturer extends Company {
 
     @DecimalMin("100.0") // Minimum value
