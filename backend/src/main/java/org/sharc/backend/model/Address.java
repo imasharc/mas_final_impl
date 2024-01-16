@@ -15,8 +15,12 @@ import lombok.*;
 public class Address {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "entity_seq_generator")
+    @SequenceGenerator(name = "entity_seq_generator", sequenceName = "entity_seq_address", allocationSize = 1)    private Long id;
+
+    @NotBlank
+    @Size(min = 2, max = 255)
+    private static String country = "Poland";
 
     @NotBlank
     @Size(min = 2, max = 255)
@@ -36,4 +40,17 @@ public class Address {
     @ManyToOne
     @JoinColumn(name = "company_id", nullable = false)
     private Company registeredFor;
+
+    @Override
+    public String toString() {
+        return "Address{" +
+                "id='" + id + '\'' +
+                ", country='" + country + '\'' +
+                ", city='" + city + '\'' +
+                ", street='" + street + '\'' +
+                ", appartmentNumber='" + appartmentNumber + '\'' +
+                ", postalCode='" + postalCode + '\'' +
+                ", registeredFor='" + registeredFor + '\'' +
+                '}';
+    }
 }

@@ -21,8 +21,8 @@ import java.util.Set;
 public abstract class Company {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "entity_seq_generator")
+    @SequenceGenerator(name = "entity_seq_generator", sequenceName = "entity_seq_company", allocationSize = 1)    private Long id;
 
     @NotBlank
     @Column(unique = true, nullable = false)

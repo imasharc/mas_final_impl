@@ -15,7 +15,8 @@ import lombok.experimental.SuperBuilder;
 public class Account {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "entity_seq_generator")
+    @SequenceGenerator(name = "entity_seq_generator", sequenceName = "entity_seq_acc", allocationSize = 1)
     private Long id;
 
     @Size(min = 2)
