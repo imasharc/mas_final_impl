@@ -2,16 +2,13 @@ package org.sharc.backend;
 
 import lombok.RequiredArgsConstructor;
 import org.sharc.backend.model.*;
-import org.sharc.backend.model.Company;
 import org.sharc.backend.repository.*;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.util.Collections;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 @Component
@@ -19,13 +16,15 @@ import java.util.Set;
 public class Main {
 
     private final AddressRepository addressRepository;
-    private final CompanyRepository companyRepository;
     private final CarrierRepository carrierRepository;
-    private final ManufacturerRepository manufacturerRepository;
+    private final NationalCarrierRepository nationalCarrierRepository;
+    private final PrivateCarrierRepository privateCarrierRepository;
     private final AccountRepository accountRepository;
 
     private Address a1;
     private Carrier c1;
+    private NationalCarrier nc1;
+    private PrivateCarrier pc1;
     private Account acc1;
     private Set<Address> setOfA = new HashSet<>();
 
@@ -65,5 +64,27 @@ public class Main {
         carrierRepository.save(c1);
         addressRepository.save(a1);
         accountRepository.save(acc1);
+
+        nc1 = NationalCarrier.builder()
+                .KRS("0000929422")
+                .name("POLREGIO S.A.")
+                .registrationDate(LocalDate.of(2001, 10, 1))
+                .licenseRegistration(LocalDate.of(2001, 10, 1))
+                .supervisor("Agencja Rozwoju Przemysłu S.A.")
+                .build();
+
+        nationalCarrierRepository.save(nc1);
+        System.out.println(nc1.toString());
+
+        pc1 = PrivateCarrier.builder()
+                .KRS("0000060950")
+                .name("Cemet S.A.")
+                .registrationDate(LocalDate.of(2001, 11, 15))
+                .licenseRegistration(LocalDate.of(2001, 11, 15))
+                .registrationBudget(4356892.80)
+                .build();
+
+        privateCarrierRepository.save(pc1);
+        System.out.println(pc1.toString());
     }
 }
