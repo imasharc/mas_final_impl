@@ -25,6 +25,7 @@ public abstract class Company {
     private Long id;
 
     @NotBlank
+    @Column(unique = true, nullable = false)
     @Size(min = 2, max = 255)
     private String KRS;
 
@@ -40,4 +41,10 @@ public abstract class Company {
 
     @PastOrPresent
     private LocalDate registrationDate;
+
+    @OneToOne(mappedBy = "company", cascade = CascadeType.ALL)
+    @JoinColumn(name = "account_id", referencedColumnName = "id")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Account account;
 }
