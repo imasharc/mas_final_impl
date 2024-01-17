@@ -17,16 +17,19 @@ public class Main {
 
     private final AddressRepository addressRepository;
     private final CarrierRepository carrierRepository;
+    private final ManufacturerRepository manufacturerRepository;
     private final NationalCarrierRepository nationalCarrierRepository;
     private final PrivateCarrierRepository privateCarrierRepository;
     private final AccountRepository accountRepository;
+    private final TrainRepository trainRepository;
 
     private Address a1;
     private Carrier c1;
+    private Manufacturer m1;
     private NationalCarrier nc1;
     private PrivateCarrier pc1;
     private Account acc1;
-    private Set<Address> setOfA = new HashSet<>();
+    private Train t1;
 
     @EventListener
     public void atStart(ContextRefreshedEvent ev) {
@@ -35,6 +38,7 @@ public class Main {
         System.out.println(all);
 
         Set<Address> setOfA = new HashSet<>();
+        Set<Train> setOfT = new HashSet<>();
         a1 = Address.builder()
                 .appartmentNumber(null)
                 .city("Warsaw")
@@ -86,5 +90,28 @@ public class Main {
 
         privateCarrierRepository.save(pc1);
         System.out.println(pc1.toString());
+
+        m1 = Manufacturer.builder()
+                .KRS("532525")
+                .name("macedony")
+                .registrationDate(LocalDate.of(2001, 8, 22))
+                .registrationBudget(999999.0)
+                .build();
+        t1 = Train.builder()
+                .numOfWagons(3)
+                .registrationDate(LocalDate.of(2001, 11, 15))
+                .trainLeadPrice(3000.0)
+                .license("43432")
+                .model("Pendolino")
+                .trainCode("2134")
+                .build();
+
+        m1.getTrains().add(t1);
+        t1.setProducedBy(m1);
+        manufacturerRepository.save(m1);
+        trainRepository.save(t1);
+
+        System.out.println(t1.toString());
+        System.out.println(m1.toString());
     }
 }
