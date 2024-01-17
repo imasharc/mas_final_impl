@@ -14,3 +14,8 @@ insert into
 values
     (10000, null, 'Warsaw', '03-734', 'ul. Targowa 74', 10001),
     (20000, null, 'Dębica', '39-200', 'ul. Sandomierska 39', 20001);
+
+insert into
+    train (id, dtype, num_of_wagons, registration_date, train_lead_price, manufacturer_id, license, model, train_code)
+values
+    (10003, 'SteamTrain', 12, '2021-01-01', 13233.0, 10001, '3534', 'RAWAG', 'B313J');
