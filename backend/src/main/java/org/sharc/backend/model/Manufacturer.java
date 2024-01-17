@@ -2,11 +2,11 @@ package org.sharc.backend.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
@@ -24,4 +24,10 @@ public class Manufacturer extends Company {
     @DecimalMin("100.0") // Minimum value
     @DecimalMax("999999999999.0") // Maximum value
     private double registrationBudget;
+
+    @OneToMany(mappedBy = "producedBy", fetch = FetchType.LAZY)
+    @Builder.Default
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<Train> trains = new HashSet<>();
 }
