@@ -16,7 +16,8 @@ public class Address {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "entity_seq_generator")
-    @SequenceGenerator(name = "entity_seq_generator", sequenceName = "entity_seq_address", allocationSize = 1)    private Long id;
+    @SequenceGenerator(name = "entity_seq_generator", sequenceName = "entity_seq_address", allocationSize = 1)
+    private Long id;
 
     @NotBlank
     @Size(min = 2, max = 255)
