@@ -13,7 +13,6 @@ import lombok.experimental.SuperBuilder;
 @Entity
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @SuperBuilder
 @ToString(callSuper = true)
 @DiscriminatorValue("EV")
@@ -30,4 +29,21 @@ public class EV extends Train {
 
     @Enumerated(EnumType.STRING)
     private BatteryType batteryType;
+
+    // Static method to create a SteamTrain from a Train object
+    public static EV createFromTrain(Train train, double chargingSpeed, BatteryType batteryType) {
+        EV ev = EV.builder()
+                .id(train.getId())
+                .trainCode(train.getTrainCode())
+                .model(train.getModel())
+                .license(train.getLicense())
+                .numOfWagons(train.getNumOfWagons())
+                .trainLeadPrice(train.getTrainLeadPrice())
+                .registrationDate(train.getRegistrationDate())
+                .producedBy(train.getProducedBy())
+                .chargingSpeed(chargingSpeed)
+                .batteryType(batteryType)
+                .build();
+        return ev;
+    }
 }

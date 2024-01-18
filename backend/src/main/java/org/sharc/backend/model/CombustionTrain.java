@@ -12,11 +12,10 @@ import lombok.experimental.SuperBuilder;
 @Entity
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @SuperBuilder
 @ToString(callSuper = true)
 @DiscriminatorValue("CombustionTrain")
-public class CombustionTrain extends Train {
+public class CombustionTrain extends Train implements ILead {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "entity_seq_generator")
@@ -27,4 +26,39 @@ public class CombustionTrain extends Train {
     @DecimalMax("999999.0") // Maximum value
     private double combustionCapacity;
 
+    @DecimalMin("0") // Minimum value
+    @DecimalMax("12000") // Maximum value
+    private int horsePower;
+
+    @DecimalMin("0.0") // Minimum value
+    @DecimalMax("400.0") // Maximum value
+    private double maxSpeed;
+
+    @Override
+    public int getHorsePower() {
+        return horsePower;
+    }
+
+    @Override
+    public double getMaxSpeed() {
+        return maxSpeed;
+    }
+
+    // Static method to create a SteamTrain from a Train object
+    public static CombustionTrain createFromTrain(Train train, double combustionCapacity, int horsePower, double maxSpeed) {
+        CombustionTrain ct = CombustionTrain.builder()
+                .id(train.getId())
+                .trainCode(train.getTrainCode())
+                .model(train.getModel())
+                .license(train.getLicense())
+                .numOfWagons(train.getNumOfWagons())
+                .trainLeadPrice(train.getTrainLeadPrice())
+                .registrationDate(train.getRegistrationDate())
+                .producedBy(train.getProducedBy())
+                .combustionCapacity(combustionCapacity)
+                .horsePower(horsePower)
+                .maxSpeed(maxSpeed)
+                .build();
+        return ct;
+    }
 }

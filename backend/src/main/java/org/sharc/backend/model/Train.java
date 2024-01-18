@@ -7,16 +7,15 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
+import java.util.Random;
 
 @Entity
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @SuperBuilder
 @ToString
 public class Train {
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "entity_seq_generator")
     @SequenceGenerator(name = "entity_seq_generator", sequenceName = "entity_seq_train", allocationSize = 1)
@@ -50,4 +49,15 @@ public class Train {
     @ManyToOne
     @JoinColumn(name = "manufacturer_id", nullable = false)
     private Manufacturer producedBy;
+
+    public Train(Long id, String trainCode, String model, String license, int numOfWagons, double trainLeadPrice, LocalDate registrationDate, Manufacturer producedBy) {
+        this.id = id;
+        this.trainCode = trainCode;
+        this.model = model;
+        this.license = license;
+        this.numOfWagons = numOfWagons;
+        this.trainLeadPrice = trainLeadPrice;
+        this.registrationDate = registrationDate;
+        this.producedBy = producedBy;
+    }
 }
