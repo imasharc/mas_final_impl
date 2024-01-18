@@ -50,6 +50,16 @@ public class Train {
     @JoinColumn(name = "manufacturer_id", nullable = false)
     private Manufacturer producedBy;
 
+    public double getTrainLeadPrice(double trainLeadPrice) {
+        if (registrationDate.isBefore(LocalDate.now().minusYears(20))) {
+            return trainLeadPrice - 1000;
+        }
+        if (model.contains("HQ")) {
+            return trainLeadPrice + 500;
+        }
+        return trainLeadPrice;
+    }
+
     public Train(Long id, String trainCode, String model, String license, int numOfWagons, double trainLeadPrice, LocalDate registrationDate, Manufacturer producedBy) {
         this.id = id;
         this.trainCode = trainCode;
