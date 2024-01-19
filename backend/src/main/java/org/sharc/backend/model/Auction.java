@@ -1,5 +1,8 @@
 package org.sharc.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Future;
@@ -36,5 +39,13 @@ public class Auction {
 
     @ManyToOne
     @JoinColumn(name = "carrier_id", nullable = false)
+//    @JsonIgnore
     private Carrier listedBy;
+
+    @OneToMany(mappedBy = "auction", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @Builder.Default
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+//    @JsonIgnore
+    private Set<Offer> offers = new HashSet<>();
 }

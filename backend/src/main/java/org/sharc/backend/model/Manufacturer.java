@@ -1,5 +1,6 @@
 package org.sharc.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -30,4 +31,11 @@ public class Manufacturer extends Company {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Set<Train> trains = new HashSet<>();
+
+    @OneToMany(mappedBy = "manufacturer", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @Builder.Default
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @JsonIgnore
+    private Set<Offer> offers = new HashSet<>();
 }
